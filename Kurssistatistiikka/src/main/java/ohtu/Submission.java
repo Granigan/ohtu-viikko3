@@ -1,6 +1,7 @@
 package ohtu;
 
 public class Submission {
+
     private int week;
     private int hours;
     private int[] exercises;
@@ -38,19 +39,19 @@ public class Submission {
         return course;
     }
 
-    private String listTasks() {
+    public String listTasks() {
         String list = "";
-        for(int i : exercises) {
+        for (int i : exercises) {
             list += "" + i + ", ";
         }
-        return list.substring(0, list.length()-2) + ".";
+        return list.substring(0, list.length() - 2) + ".";
     }
-    
+
     @Override
     public String toString() {
-        return "Kurssin " + course + ", viikolla " + week + " tehtyjä tehtäviä: " 
-                + exercises.length + ". Aikaa kului " + hours 
+        return "Kurssin " + course + ", viikolla " + week + " tehtyjä tehtäviä: "
+                + exercises.length + ". Aikaa kului " + hours
                 + " tuntia. Tehdyt tehtävät: " + listTasks();
     }
-    
+
 }
