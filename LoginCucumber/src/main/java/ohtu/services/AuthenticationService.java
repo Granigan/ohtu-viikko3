@@ -40,7 +40,8 @@ public class AuthenticationService {
 
     private boolean invalid(String username, String password) {
         // validity check of username and password
+        return !(username.matches("[A-Za-z][A-Za-z][A-Za-z]+") && 
+                password.matches("^(?=.*)(?=.*\\d)[A-Za-z\\d]{8,}$"));
 
-        return false;
     }
 }
