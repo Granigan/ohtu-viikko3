@@ -3,6 +3,8 @@ package ohtu;
 import com.google.gson.Gson;
 import java.io.IOException;
 import org.apache.http.client.fluent.Request;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 
 public class Main {
 
@@ -29,6 +31,7 @@ public class Main {
 
         int exercisesDone = 0;
         int hoursTotal = 0;
+        int subsTotal = 0;
 
         System.out.println("Opiskelijanumero " + studentNr + "\n\n");
 
@@ -39,6 +42,7 @@ public class Main {
                 if (course.getName().equals(sub.getCourse())) {
                     exercisesDone += sub.getExercises().length;
                     hoursTotal += sub.getHours();
+                    
                     System.out.println("Viikko " + sub.getWeek() + ":");
                     System.out.println("\tTehtyjä tehtäviä "
                             + sub.getExercises().length + "/"
@@ -49,9 +53,34 @@ public class Main {
             }
             System.out.println("\nYhteensä: " + exercisesDone + "/"
                     + course.exerciseCount() + " tehtävää ja " + hoursTotal
-                    + " tuntia.\n\n");
+                    + " tuntia.\n");
             exercisesDone = 0;
             hoursTotal = 0;
+
+            String courseUrl = "https://studies.cs.helsinki.fi/courses/" + course.getName() + "/stats";
+            String courseText = Request.Get(courseUrl).execute().returnContent().asString();
+
+            JsonParser parser = new JsonParser();
+            JsonObject parsittuData = parser.parse(courseText).getAsJsonObject();
+
+            for (int i = 1; i < 20; i++) { // 20 AS MAX NUMBER OF WEEKS
+                if (parsittuData.getAsJsonObject("" + i) != null) {
+                    JsonObject week = parsittuData.getAsJsonObject("" + i);
+                    exercisesDone += week.get("exercise_total").getAsInt();
+                    hoursTotal += week.get("hour_total").getAsInt();
+                    subsTotal += week.get("students").getAsInt();
+                }
+            }
+
+            System.out.println("Kurssilla yhteensä " + subsTotal
+                    + " palautusta, palautettuja tehtäviä " + exercisesDone
+                    + " kpl, aikaa käytetty yhteensä " + hoursTotal
+                    + " tuntia.\n\n");
+            
+            exercisesDone = 0;
+            hoursTotal = 0;
+            subsTotal = 0;
+            
         }
     }
 }
