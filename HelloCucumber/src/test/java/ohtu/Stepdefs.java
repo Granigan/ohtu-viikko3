@@ -21,7 +21,12 @@ public class Stepdefs {
     @When("^it is incremented by (\\d+)$")
     public void it_is_incremented_by(int val) throws Throwable {
         counter.increment(val);
-    }     
+    }
+    
+    @When("^it is reset$")
+    public void it_is_reset() throws Throwable {
+        counter.reset();
+    }
 
     @Then("^the value should be (\\d+)$")
     public void the_value_should_be(int val) throws Throwable {
