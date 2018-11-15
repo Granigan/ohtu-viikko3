@@ -1,2 +1,6 @@
 pekka;akkep
 jukka;akkuj
+tester;tester
+newuser9791;passw0rd
+newuser4029;passw0rd
+newuser6242;passw0rd
