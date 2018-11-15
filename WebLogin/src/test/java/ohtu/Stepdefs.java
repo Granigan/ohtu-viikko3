@@ -46,6 +46,11 @@ public class Stepdefs {
         logInWith(username, password);
     }
     
+    @When("^non-existing username \"([^\"]*)\" and irrelevant password \"([^\"]*)\" are given$")
+    public void nonexisting_username_and_irrelevant_password_are_given(String username, String password) throws Throwable {
+        logInWith(username, password);
+    }
+    
     @Then("^user is logged in$")
     public void user_is_logged_in() throws Throwable {
         pageHasContent("Ohtu Application main page");
