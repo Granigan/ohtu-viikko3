@@ -5,6 +5,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.htmlunit.HtmlUnitDriver;
 
 public class Tester {
 
@@ -12,7 +13,7 @@ public class Tester {
     private static WebElement element;
 
     public static void main(String[] args) {
-        driver = new ChromeDriver();
+        driver = new HtmlUnitDriver();
 
         //open site
         driver.get("http://localhost:4567");
